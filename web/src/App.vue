@@ -1,30 +1,42 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <div>
+    <div>昵称：{{bot_name}}</div>
+    <div>积分：{{bot_rating}}</div>
+  </div>
   <router-view/>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import $ from 'jquery'
+import {ref} from 'vue'
 
-nav {
-  padding: 30px;
-}
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+export default ({
+  name:"APP",
+  setup() {
+    let bot_name = ref("");
+    let bot_rating = ref("");
 
-nav a.router-link-exact-active {
-  color: #42b983;
+    $.ajax({
+      url:"http://localhost:3000/pk/getbotinfo/",
+      type:"get",
+      success(resp){
+        bot_name.value = resp.name;
+        bot_rating.value = resp.rating;
+      }
+    })
+    return  {
+      bot_name,
+      bot_rating,
+    }
+  },
+})
+</script>
+
+
+<style >
+body {
+  background-image: url("@/assets/bcg2.jpg") ;
+  background-size: cover ;
 }
 </style>
