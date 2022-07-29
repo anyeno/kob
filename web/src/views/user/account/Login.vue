@@ -1,5 +1,5 @@
-<template>
-  <ConTentField>
+<template >
+  <ConTentField v-if="!$store.state.user.pulling_info">
     <div class="row justify-content-md-center">
       <div class="col-3">
         <form @submit.prevent="login">
@@ -46,6 +46,23 @@ export default {
     let password = ref("");
     let error_msg = ref("");
 
+    const jwt_token = localStorage.getItem("jwt_token");
+    if(jwt_token){
+      store.commit("updateToken",jwt_token);
+      store.dispatch("getinfo",{
+        success(){
+          router.push({name:"home"})  //因为setup是在页面准备好前执行的，所以如果token有效就直接重定向到home界面
+          store.commit("updatePullingInfo",false)
+        },
+        error(){
+          store.commit("updatePullingInfo",false)//要打开登录界面前  如果token失效
+        }
+      })
+    }
+    else{
+      store.commit("updatePullingInfo",false)   //或者token不存在时展示登录界面  否则不展示
+    }
+
     const login = () => {
       error_msg.value="";
       store.dispatch("login", { 
@@ -56,13 +73,11 @@ export default {
           store.dispatch("getinfo",{
             success() {
               router.push({ name: 'home' });
-              console.log(store.state.user);
             },
             error(){
               error_msg.value = "用户名或密码错误";
             }
           })
-          console.log(store.state.user.token);
         },
         error() {
           error_msg.value = "用户名或密码错误";
@@ -75,7 +90,7 @@ export default {
       password,
       error_msg,
       login,
-    };
+      };
   },
 };
 </script>

@@ -6,6 +6,7 @@ const ModuleUser={
         photo:"", 
         token:"",
         is_login:false,
+        pulling_info:true,  //是否正在拉取信息
     },
     getters: {
     },
@@ -25,6 +26,9 @@ const ModuleUser={
             state.photo="";
             state.token="";
             state.is_login=false;
+        },
+        updatePullingInfo(state,pullingInfo) {
+            state.pulling_info = pullingInfo
         }
     },
     actions: {
@@ -38,7 +42,7 @@ const ModuleUser={
                 },
                 success(resp){
                     if(resp.error_message === "success") {
-                        //console.log(resp.token);
+                        localStorage.setItem("jwt_token",resp.token);//将token存到浏览器的localStorage中
                         context.commit("updateToken",resp.token);
                         data.success(resp);
                     }else {
@@ -78,6 +82,7 @@ const ModuleUser={
         },
         
         logout(context){
+            localStorage.removeItem("jwt_token");//从localStorage中删掉
             context.commit("logout");
         }
         

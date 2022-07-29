@@ -44,6 +44,7 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 import router from "@/router/index"; //@定义到了src目录
 import $ from "jquery";
+
 export default {
   name: "ReGister",
   components: {
@@ -58,28 +59,35 @@ export default {
     const register = () => {
       error_msg.value = "";
       $.ajax({
-        url: "https://app165.acapp.acwing.com.cn/myspace/user/",
+        url: "http://127.0.0.1:3000/user/account/register/",
         type: "POST",
         data: {
           username: username.value,
           password: password.value,
-          password_confirm: password_confirm.value,
+          confirmedPassword: password_confirm.value,
         },
+        
         success(resp) {
-          if (resp.result === "success") {
+          //console.log(resp)
+          if (resp.error_message === "success") {
             store.dispatch("login", {
               //如果在外面调用actions里的名字的话要用dispatch的api "login是调用的函数名 {}里的是传入的参数"
               username: username.value,
               password: password.value,
               success() {
-                router.push({ name: "userlist" }); //跳转到userlist 跟navbar里的一样
-              },
+                store.dispatch("getinfo",{
+                  success() {
+                    router.push({ name: 'home' });
+                  },
+                  error(){
+                  }
+                })
+            },
               error() {
-                error_msg.value = "系统异常，稍后重试";
               },
             }) ;
           } else{
-              error_msg.value=resp.result;
+              error_msg.value=resp.error_message;
           }
         },
       });

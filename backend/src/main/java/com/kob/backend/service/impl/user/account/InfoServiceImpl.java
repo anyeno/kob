@@ -15,10 +15,10 @@ import java.util.Map;
 public class InfoServiceImpl implements InfoService {
     @Override
     public Map<String, String> getinfo() {
+        //这一坨就是取出user
         UsernamePasswordAuthenticationToken authentication =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl loginUser = (UserDetailsImpl) authentication.getPrincipal();
-
         User user = loginUser.getUser();
 
         Map<String,String> map = new HashMap<>();

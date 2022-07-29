@@ -19,7 +19,7 @@
           </li>
         </ul>
 
-        <ul class="navbar-nav" v-if="!$store.state.user.is_login">
+        <ul class="navbar-nav" v-if="!$store.state.user.is_login && !$store.state.user.pulling_info">
           <li class="nav-item">
             <router-link :class="route_name == 'login' ? 'nav-link active' : 'nav-link'" :to="{name:'login'}">登录</router-link>
           </li>
