@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <!-- <a class="navbar-brand" href="/">来点蛇图</a> -->
-      <router-link class="navbar-brand" :to="{name:'home'}">来点蛇图</router-link>
+      <router-link class="navbar-brand" :to="{name:'home'}">KOB</router-link>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
@@ -19,7 +19,7 @@
           </li>
         </ul>
 
-        <ul class="navbar-nav" v-if="!$store.state.user.is_login && !$store.state.user.pulling_info">
+        <ul class="navbar-nav" v-if="!$store.state.user.is_login">
           <li class="nav-item">
             <router-link :class="route_name == 'login' ? 'nav-link active' : 'nav-link'" :to="{name:'login'}">登录</router-link>
           </li>
@@ -35,7 +35,8 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <!-- <li><a class="dropdown-item" href="/user/bot/">我的蛇蛇</a></li> -->
-            <router-link class="dropdown-item" :to="{name:'user_bot_index'}">我的蛇蛇</router-link>
+            <router-link class="dropdown-item" :to="{name:'user_bot_index'}">我的Bot
+            </router-link>
             <li><hr class="dropdown-divider"></li>
             <li><a @click="logout" class="dropdown-item" href="#">退出</a></li>
           </ul>
