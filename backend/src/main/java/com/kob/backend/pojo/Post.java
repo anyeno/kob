@@ -12,16 +12,11 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Bot {
+public class Post {
     @TableId(type = IdType.AUTO)  //自增
     private Integer id;
     private Integer userId;
-    private String title;
-    private String description;
     private String content;
-    private Integer rating;@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "Asia/Shanghai")//展示时间的格式
-
-    private Date createTime;
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "Asia/Shanghai")//展示时间的格式
-    private Date modifyTime;
+    private Date createTime;
 }
