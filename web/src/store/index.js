@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import ModuleUser from './user.js'
-
+import ModulePK from './pk'
 //存储全局变量  各组件之间传递数据、共用数据就用它
 
 export default createStore({
@@ -18,6 +18,7 @@ export default createStore({
   },
   modules: {
     //分割state state可能数据太多了
-    user:ModuleUser,
+    user: ModuleUser,
+    pk: ModulePK,
   }
 })
