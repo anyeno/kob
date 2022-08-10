@@ -6,7 +6,7 @@ export default {
     socket: null,
     opponent_username: "",
     opponent_photo: "",
-
+    gamemap: null,
   },
   getters: {
     //通过计算获取数据(state)的内容 只能读取 不能修改
@@ -22,6 +22,9 @@ export default {
     },
     updateStatus(state,status) {
         state.status = status;
+    },
+    updateGamemap(state,gamemap) {
+      state.gamemap = gamemap;
     }
   },
   actions: {
