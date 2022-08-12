@@ -65,9 +65,10 @@ export class Snake extends AcGameObject {
             this.cells[i] = JSON.parse(JSON.stringify(this.cells[i-1]));//深层复制  深拷贝
         }
 
-        if(!this.gamemap.check_valid(this.next_cell)) { //下一步操作非法则去世
-            this.status = "die";
-        }
+        // if(!this.gamemap.check_valid(this.next_cell)) { //下一步操作非法则去世
+        //     this.status = "die";
+        // }
+        //交给后端判断
     }
 
     //render是每一帧根据 x,y,L等信息把某一东西画出来  改变x,y,L等参数就可以把物体画到不同的地方，从而实现移动

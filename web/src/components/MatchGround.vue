@@ -46,14 +46,12 @@ export default {
                 match_btn_info.value = "取消";
                 store.state.pk.socket.send(JSON.stringify({//json封装成字符串然后通过socket连接发送到后端   
                     event:"start-matching",
-
                 }));
             }
             else{
                 match_btn_info.value = "开始匹配";
                 store.state.pk.socket.send(JSON.stringify({//json封装成字符串   
                     event:"stop-matching",
-                    
                 }));
             }
         }   
