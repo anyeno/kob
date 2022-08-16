@@ -18,7 +18,7 @@ public class Player {
 
     private boolean check_tail_increasing(int step){//检验当前回合，蛇的长度是否增加
         if(step <= 10) return true;
-        return step % 3==1;
+        return step % 3 == 1;
     }
 
     public List<Cell> getCells(){
@@ -27,7 +27,7 @@ public class Player {
         int[] dx = {-1,0,1,0},dy = {0,1,0,-1};
         int x = sx, y = sy;
         int step = 0;
-        res.add(new Cell(x,y));
+        res.add(new Cell(x,y)); //add 加到末尾
         for(int d: steps){
             x+=dx[d];
             y+=dy[d];

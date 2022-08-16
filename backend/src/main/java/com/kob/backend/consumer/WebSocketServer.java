@@ -41,10 +41,7 @@ public class WebSocketServer {
     // > 单例模式-> 一个类同一时间只能有一个实例  websocket多线程所以不是一个单例模式
     //先定义成一个独一份的变量
     private static UserMapper userMapper;
-
-    @Autowired
     public static RecordMapper recordMapper;
-
     private Game game = null;
 
     @Autowired
@@ -72,7 +69,7 @@ public class WebSocketServer {
             this.session.close();
         }
 
-        System.out.println(users);
+        //System.out.println(users);
     }
 
     @OnClose
@@ -97,10 +94,10 @@ public class WebSocketServer {
 
             game = new Game(13,14,20,a.getId(),b.getId());
             game.createMap();
-            game.start();
 
             users.get(a.getId()).game = game;
             users.get(b.getId()).game = game;
+            game.start();
 
             JSONObject respGame = new JSONObject();
             respGame.put("a_id",game.getPlayerA().getId());
@@ -112,7 +109,7 @@ public class WebSocketServer {
             respGame.put("gamemap",game.getG());
 
             JSONObject respA = new JSONObject();
-            respA.put("event","start-matching");
+            respA.put("event","start-matching");  //匹配成功
             respA.put("opponent_username",b.getUsername());
             respA.put("opponent_photo",b.getPhoto());
             respA.put("game",respGame);
@@ -150,7 +147,7 @@ public class WebSocketServer {
         String event = data.getString("event");
         if("start-matching".equals(event)) {
             startMatching();
-        } else if("stop".equals(event)) {
+        } else if("stop-matching".equals(event)) {
             stopMatching();
         } else if("move".equals(event)) {
             move(data.getInteger("direction"));

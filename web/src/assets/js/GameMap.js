@@ -10,7 +10,7 @@ export class GameMap extends AcGameObject{
         this.ctx = ctx;
         this.parent = parent;
         this.store = store;
-        this.L = 0;//一个单位的长度（为了自适应性用相对距离不用绝对距离  地图是13*13的）
+        this.L = 0;//一个单位的长度（为了自适应性用相对距离不用绝对距离  地图是13*14的）
 
         this.rows = 13; 
         this.cols = 14;
@@ -87,9 +87,9 @@ export class GameMap extends AcGameObject{
 
     start(){
         this.create_walls();
-        for(let i=0;i<1000;i++)
-            if(this.create_walls()) 
-                break;
+        // for(let i=0;i<1000;i++)
+        //     if(this.create_walls()) 
+        //         break;
         this.add_listening_events();
     }
 

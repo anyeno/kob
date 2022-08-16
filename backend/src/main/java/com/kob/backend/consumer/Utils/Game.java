@@ -70,7 +70,7 @@ public class Game extends Thread{
 
         for (int i = 0; i < 4; i++) {
             int x = sx+dx[i], y=sy+dy[i];
-            if(x>=0&&x<this.rows && y>=0&&y<this.cols&&g[x][y]==0){
+            if(x >= 0 && x < this.rows && y >= 0 && y < this.cols && g[x][y] == 0){
                 if(check_connectivity(x,y,tx,ty)) {
                     g[sx][sy] = 0;
                     return true;
@@ -82,7 +82,7 @@ public class Game extends Thread{
         return false;
     }
 
-    private boolean draw() {
+    private boolean draw()  {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < cols; j++) {
                 g[i][j] = 0;
@@ -135,6 +135,8 @@ public class Game extends Thread{
                     if(nextStepA != null && nextStepB != null) {
                         playerA.getSteps().add(nextStepA);
                         playerB.getSteps().add(nextStepB);
+                        System.out.println("nextStepA: "+nextStepA);
+                        System.out.println("nextStepB: "+nextStepB);
                         return true;
                     }
                 } finally {
@@ -150,6 +152,14 @@ public class Game extends Thread{
     private boolean check_valid(List<Cell> cellsA, List<Cell> cellsB){
         int n = cellsA.size();
         Cell cell = cellsA.get(n-1);
+
+        System.out.println("cell.x=="+cell.x);
+        System.out.println("cell.y=="+cell.y);
+
+//        if(cell.x>=this.rows || cell.y>this.cols || cell.x<0 || cell.y<0) {
+//            System.out.println("越界了！");
+//        }
+
         if(g[cell.x][cell.y] == 1) return false;
 
         for (int i = 0; i < n-1; i++) {
@@ -161,6 +171,8 @@ public class Game extends Thread{
             if(cellsB.get(i).x == cell.x && cellsB.get(i).y == cell.y)
                 return false;
         }
+
+        System.out.println("执行check_valid");
 
         return true;
     }
@@ -200,6 +212,9 @@ public class Game extends Thread{
             sendAllMessage(resp.toJSONString());
             nextStepA = null;
             nextStepB = null;
+            System.out.println("执行sendMove");
+            System.out.println("sendMove_StepA: "+nextStepA);
+            System.out.println("sendMove_StepB: "+nextStepB);
         } finally {
             lock.unlock();
         }
@@ -225,6 +240,7 @@ public class Game extends Thread{
         );
 
         WebSocketServer.recordMapper.insert(record);
+        System.out.println("执行savetobase");
     }
 
     private void sendResult(){//向两个client公布结果
@@ -245,6 +261,7 @@ public class Game extends Thread{
                     sendMove();
                 } else {
                     sendResult();
+                    break;
                 }
             } else {
                 status = "finished";
