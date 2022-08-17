@@ -198,8 +198,10 @@ public class Game extends Thread{
     }
 
     private void sendAllMessage(String message) {//辅助函数，给两个玩家发送消息
-        WebSocketServer.users.get(playerA.getId()).sendMessage(message);
-        WebSocketServer.users.get(playerB.getId()).sendMessage(message);
+        if(WebSocketServer.users.get(playerA.getId()) != null)
+            WebSocketServer.users.get(playerA.getId()).sendMessage(message);
+        if(WebSocketServer.users.get(playerB.getId()) != null)
+            WebSocketServer.users.get(playerB.getId()).sendMessage(message);
     }
 
     private void sendMove() {//向两个client传递移动信息
