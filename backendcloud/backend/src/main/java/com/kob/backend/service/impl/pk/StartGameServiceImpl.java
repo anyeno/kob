@@ -9,9 +9,9 @@ import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 @Service
 public class StartGameServiceImpl implements StartGameService {
     @Override
-    public String startGame(Integer aId, Integer bId) {
+    public String startGame(Integer aId, Integer aBotId,Integer bId, Integer bBotId) {
         System.out.println("Start a game  "+aId+" "+bId);
-        WebSocketServer.startGame(aId,bId);
+        WebSocketServer.startGame(aId, aBotId,bId, bBotId);
         return null;
     }
 }

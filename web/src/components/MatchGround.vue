@@ -2,7 +2,7 @@
   <div class="matchground">
     <div class="container">
       <div class="row">
-        <div class="col-6">
+        <div class="col-4">
           <div class="user-photo">
             <img :src="$store.state.user.photo" alt="" class="img-fluid" />
           </div>
@@ -10,7 +10,14 @@
             {{ $store.state.user.username }}
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-4 user-select-bot">
+          <select v-model="select_bot" class="form-select " aria-label="Default select example">
+            <option  value="-1" selected>亲自出马</option>
+            <option v-for="bot in bots" :key="bot.id" :value="bot.id">{{bot.title}} </option>
+
+          </select>
+        </div>
+        <div class="col-4">
           <div class="user-photo">
             <img
               :src="$store.state.pk.opponent_photo"
@@ -22,9 +29,16 @@
             {{ $store.state.pk.opponent_username }}
           </div>
         </div>
+
         <div class="row">
           <div class="col-12 match-btn">
-            <button @click="click_match_btn" type="button" class="btn btn-warning">{{match_btn_info}}</button>
+            <button
+              @click="click_match_btn"
+              type="button"
+              class="btn btn-warning"
+            >
+              {{ match_btn_info }}
+            </button>
           </div>
         </div>
       </div>
@@ -33,34 +47,61 @@
 </template>
 
 <script>
-import {ref} from 'vue'
-import {useStore} from 'vuex'
+import { ref } from "vue";
+import { useStore } from "vuex";
+import $ from "jquery"
 
 export default {
-    setup() {
-        let match_btn_info = ref("开始匹配");
-        const store = useStore();
+  setup() {
+    let match_btn_info = ref("开始匹配");
+    const store = useStore();
+    let bots = ref([]);
+    let select_bot = ref("-1");
 
-        const click_match_btn = () => {
-            if(match_btn_info.value === "开始匹配") {
-                match_btn_info.value = "取消";
-                store.state.pk.socket.send(JSON.stringify({//json封装成字符串然后通过socket连接发送到后端   
-                    event:"start-matching",
-                }));
-            }
-            else{
-                match_btn_info.value = "开始匹配";
-                store.state.pk.socket.send(JSON.stringify({//json封装成字符串   
-                    event:"stop-matching",
-                }));
-            }
-        }   
 
-        return {
-            match_btn_info,
-            click_match_btn,
-        }
+    const click_match_btn = () => {
+      if (match_btn_info.value === "开始匹配") {
+        match_btn_info.value = "取消";
+        store.state.pk.socket.send(
+          JSON.stringify({
+            //json封装成字符串然后通过socket连接发送到后端
+            event: "start-matching",
+            bot_id: select_bot.value,
+          })
+        );
+      } else {
+        match_btn_info.value = "开始匹配";
+        store.state.pk.socket.send(
+          JSON.stringify({
+            //json封装成字符串
+            event: "stop-matching",
+          })
+        );
+      }
+    };
+
+    const  refresh_bots = ()=>{
+        $.ajax({
+            url:"http://127.0.0.1:3000/user/bot/getlist/",
+            type:"get",
+            headers: {
+                Authorization: "Bearer "+store.state.user.token,
+            },
+            success(resp){
+                bots.value = resp;
+            }
+        })
     }
+
+    refresh_bots();   //从云端动态获取bots
+
+    return {
+      match_btn_info,
+      click_match_btn,
+      bots,
+      select_bot,
+    };
+  },
 };
 </script>
 
@@ -90,6 +131,13 @@ div.user-username {
 }
 div.match-btn {
   text-align: center;
-  padding-top:14vh;
+  padding-top: 14vh;
+}
+div.user-select-bot{
+  padding-top: 20vh ;
+}
+div.user-select-bot > select {
+  width: 60%;
+  margin: 0 auto;
 }
 </style>
