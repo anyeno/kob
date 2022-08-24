@@ -44,7 +44,7 @@ public class WebSocketServer {
     //websocket 不是spring的一个标准组件 不是一个单例模式？
     // > 单例模式-> 一个类同一时间只能有一个实例  websocket多线程所以不是一个单例模式
     //先定义成一个独一份的变量
-    private static UserMapper userMapper;
+    public static UserMapper userMapper;
     public static RecordMapper recordMapper;
     public static RestTemplate restTemplate;
     private static BotMapper botMapper;

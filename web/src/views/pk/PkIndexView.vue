@@ -24,6 +24,7 @@ export default {
 
         let socket = null;
 
+        store.commit("updateIsRecord",false);
         store.commit("updateLoser","none");
         
         onMounted(() => {//组件挂载时执行

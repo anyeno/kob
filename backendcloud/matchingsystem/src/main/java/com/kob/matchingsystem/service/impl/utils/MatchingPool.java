@@ -1,6 +1,5 @@
 package com.kob.matchingsystem.service.impl.utils;
 
-import com.sun.org.apache.bcel.internal.generic.MULTIANEWARRAY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -9,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Component
