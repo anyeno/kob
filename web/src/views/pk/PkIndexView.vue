@@ -47,6 +47,7 @@ export default {
                         username: data.opponent_username,
                         photo: data.opponent_photo,
                     });
+                    store.commit("updateColor",data.color);
                     setTimeout(() => {
                         store.commit("updateStatus","playing");
                     },200);   //两秒后执行

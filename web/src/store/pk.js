@@ -15,6 +15,7 @@ export default {
     b_sy: 0,
     gameObject: null,
     loser: "none", //none all  A  B
+    color: "蓝色",
   },
   getters: {
     //通过计算获取数据(state)的内容 只能读取 不能修改
@@ -45,6 +46,9 @@ export default {
     },
     updateLoser(state,loser){
       state.loser = loser;
+    },
+    updateColor(state,color) {
+      state.color = color;
     }
   },
   actions: {

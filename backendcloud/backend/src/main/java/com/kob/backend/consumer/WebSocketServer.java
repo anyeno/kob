@@ -137,6 +137,7 @@ public class WebSocketServer {
         respA.put("opponent_username",b.getUsername());
         respA.put("opponent_photo",b.getPhoto());
         respA.put("game",respGame);
+        respA.put("color","蓝色");
         if(users.get(a.getId()) != null)
             users.get(a.getId()).sendMessage(respA.toJSONString());
 
@@ -145,6 +146,7 @@ public class WebSocketServer {
         respB.put("opponent_username",a.getUsername());
         respB.put("opponent_photo",a.getPhoto());
         respB.put("game",respGame);
+        respB.put("color","红色");
         if(users.get(b.getId()) != null)
             users.get(b.getId()).sendMessage(respB.toJSONString());
     }
