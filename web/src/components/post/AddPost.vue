@@ -21,13 +21,14 @@
 import $ from 'jquery'
 import {useStore} from 'vuex'
 import {ref} from 'vue'
+
 export default {
     setup(){
         const store = useStore();
         let content = ref("")
         const add_post = ()=>{
             $.ajax({
-                url:"http://127.0.0.1:3000/post/add/",
+                url:"https://app2409.acapp.acwing.com.cn/api/post/add/",
                 type:"post",
                 headers:{
                     Authorization:"Bearer "+store.state.user.token
@@ -40,6 +41,7 @@ export default {
                     content.value = ""
                 }
             })
+            
         }
 
         return {

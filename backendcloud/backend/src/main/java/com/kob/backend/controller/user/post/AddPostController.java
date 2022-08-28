@@ -13,7 +13,7 @@ public class AddPostController  {
     @Autowired
     private Add add;
 
-    @PostMapping("/post/add/")
+    @PostMapping("/api/post/add/")
     public Map<String,String> add(@RequestParam Map<String, String> data) {
         return add.add(data);
     }

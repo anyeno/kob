@@ -29,13 +29,13 @@
               >排行榜</router-link
             >
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link
               :class="route_name == 'rpost' ? 'nav-link active' : 'nav-link'"
               :to="{ name: 'post' }"
               >发帖</router-link
             >
-          </li>
+          </li> -->
           <li class="nav-item">
             <router-link
               :class="route_name == '404' ? 'nav-link active' : 'nav-link'"

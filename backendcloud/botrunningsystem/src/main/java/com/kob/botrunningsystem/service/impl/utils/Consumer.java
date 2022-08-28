@@ -1,6 +1,5 @@
 package com.kob.botrunningsystem.service.impl.utils;
 
-import com.kob.botrunningsystem.utils.BotInterface;
 import org.joor.Reflect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,8 +7,11 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Locale;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 @Component
 public class Consumer extends Thread{
@@ -36,7 +38,7 @@ public class Consumer extends Thread{
     }
 
     private String addUid(String code, String uid) {//在code中的Bot类名后添加uid
-        int k = code.indexOf(" implements com.kob.botrunningsystem.utils.BotInterface");
+        int k = code.indexOf(" implements java.util.function.Supplier<Integer>");
         return code.substring(0,k) + uid + code.substring(k);
     }
 
@@ -45,12 +47,20 @@ public class Consumer extends Thread{
         UUID uuid = UUID.randomUUID();   //每次返回一个不一样的随机字符串
         String uid = uuid.toString().substring(0,8);
 
-        BotInterface botInterface = Reflect.compile(  //工具接口帮我们动态编译代码
+        Supplier<Integer> botInterface = Reflect.compile(  //工具接口帮我们动态编译代码
                 "com.kob.botrunningsystem.utils.Bot" + uid,
                 addUid(bot.getBotCode(),uid)
         ).create().get();
 
-        Integer direction = botInterface.nextMove(bot.getInput());
+        File file = new File("input.txt");
+        try (PrintWriter fout = new PrintWriter(file)){
+            fout.println(bot.getInput());
+            fout.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Integer direction = botInterface.get();
 
         System.out.println("move-direction: " + bot.getUserId() + "  " + direction); //调用编译后执行的结果
 

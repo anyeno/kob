@@ -34,7 +34,7 @@ const ModuleUser={
     actions: {
         login(context,data){//data传入api的输入  这个data是定义函数(login)时的参数   context用来调用mutations的函数
             $.ajax({
-                url:"http://localhost:3000/user/account/token/",
+                url:"https://app2409.acapp.acwing.com.cn/api/user/account/token/",
                 type:"post",
                 data:{
                     username: data.username,
@@ -58,7 +58,7 @@ const ModuleUser={
 
         getinfo(context,data){
             $.ajax({
-                url:"http://localhost:3000/user/account/info/",
+                url:"https://app2409.acapp.acwing.com.cn/api/user/account/info/",
                 type:"get",
                 headers: {
                   Authorization: "Bearer "+ context.state.token,

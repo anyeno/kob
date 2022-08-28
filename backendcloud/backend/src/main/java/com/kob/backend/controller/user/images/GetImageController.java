@@ -14,7 +14,7 @@ public class GetImageController {
     @Autowired
     private GetImageService getImageService;
 
-    @GetMapping("/images/get/")
+    @GetMapping("/api/images/get/")
     public List<Images> get_images(Map<String,String> data){
         return getImageService.get_image(data);
     }

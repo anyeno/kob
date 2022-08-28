@@ -15,7 +15,7 @@ public class GetPostController {
     @Autowired
     private GetList getList;
 
-    @GetMapping("/post/getlist/")
+    @GetMapping("/api/post/getlist/")
     public List<Post> getlist(@RequestParam Map<String,String> data) {
         return getList.getlist(data);
     }

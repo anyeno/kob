@@ -23,7 +23,7 @@ export default {
         const store = useStore();
         $.ajax({
                 //url:"https://api.thedogapi.com/v1/images/search",
-                url:"http://127.0.0.1:3000/images/get/",
+                url:"https://app2409.acapp.acwing.com.cn/api/images/get/",
                 tyle:"get",
                 headers:{
                     Authorization:"Bearer "+ store.state.user.token
@@ -40,7 +40,7 @@ export default {
         const change = ()=>{
             $.ajax({
                 //url:"https://api.thedogapi.com/v1/images/search",
-                url:"http://127.0.0.1:3000/images/get/",
+                url:"https://app2409.acapp.acwing.com.cn/api/images/get/",
                 tyle:"get",
                 success(resp){
                     const len = resp.length;
