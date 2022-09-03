@@ -2,6 +2,8 @@
 export default {
     state: {
       //存储所有数据
+      a_id: "",
+      b_id: "",
       status: "matching",  //matching 正在匹配   playing 对战
       socket: null,
       opponent_username: "",
@@ -17,6 +19,12 @@ export default {
     },
     mutations: {
       //对数据修改的操作要在这里执行 不能执行异步操作   调用用 commit
+      updateAIdFive(state,aId){
+        state.a_id = aId;
+      },
+      updateBIdFive(state,bId){
+        state.b_id = bId;
+      },
       updateSocketFive(state,socket) {
           state.socket = socket;
       },
@@ -27,7 +35,6 @@ export default {
       updateStatusFive(state,status) {
           state.status = status;
       },
-      
       updateLoserFive(state,loser){
         state.loser = loser;
       },
@@ -39,7 +46,8 @@ export default {
       },
       updateStepsFive(state, steps){
         state.steps = steps;
-      }
+      },
+  
     },
     actions: {
       //操作数据 不能直接修改 异步  从云端获取数据写在这一步   调用用  dispatch

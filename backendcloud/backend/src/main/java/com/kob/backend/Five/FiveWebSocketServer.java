@@ -56,6 +56,8 @@ public class FiveWebSocketServer {
             respA.put("opponent_photo",b.getPhoto());
             respA.put("g", game.g);
             respA.put("order", "single");
+            respA.put("a_id", a.getId());
+            respA.put("b_id", b.getId());
             users.get(a.getId()).sendMessage(respA.toJSONString());
 
             JSONObject respB = new JSONObject();
@@ -64,6 +66,8 @@ public class FiveWebSocketServer {
             respB.put("opponent_photo",b.getPhoto());
             respB.put("g", game.g);
             respB.put("order", "double");
+            respB.put("a_id", a.getId().toString());
+            respB.put("b_id", b.getId().toString());
             users.get(b.getId()).sendMessage(respB.toJSONString());
 
             System.out.println("start game");
@@ -74,6 +78,57 @@ public class FiveWebSocketServer {
     private void stopMatching() {
         System.out.println("stop matching");
         matchpool.remove(this.user);
+    }
+
+    boolean is_valid(int x,int y){
+        return 0<=x && x<=14 && 0<=y && y<=14;
+    }
+
+    private String check_loser(){
+        int [] dx = {0,1,1,1}, dy = {1,1,0,-1};
+        String loser = "none";
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                int x = i, y = j;
+                if(game.g[i][j] == 1){
+                    int count  = 1;
+                    for (int k = 0; k < 4; k++) {
+                            x+=dx[k]; y+=dy[k];
+                            while(is_valid(x,y) && game.g[x][y] == 1){
+                                count++;
+                                x+=dx[k]; y+=dy[k];
+                            }
+                            if(count >= 5){
+                                loser = "B";
+                                break;
+                            }else{
+                                count = 1;
+                                x = i;
+                                y = j;
+                            }
+                    }
+                }else if(game.g[i][j] == 2){
+                    int count  = 1;
+                    for (int k = 0; k < 4; k++) {
+                        x+=dx[k]; y+=dy[k];
+                        while(is_valid(x,y) && game.g[x][y] == 2){
+                            count++;
+                            x+=dx[k]; y+=dy[k];
+                        }
+                        if(count >= 5){
+                            loser = "A";
+                            break;
+                        }else{
+                            count = 1;
+                            x = i;
+                            y = j;
+                        }
+                    }
+                }
+            }
+        }
+
+        return loser;
     }
 
     private void chess(JSONObject data){
@@ -89,6 +144,17 @@ public class FiveWebSocketServer {
         users.get(game.aId).sendMessage(resp.toJSONString());
         users.get(game.bId).sendMessage(resp.toJSONString());
         System.out.println("update game");
+
+        String loser = check_loser();
+        if(!"none".equals(loser)){
+            JSONObject respResult = new JSONObject();
+            respResult.put("event", "result");
+            respResult.put("loser", loser);
+            users.get(game.aId).sendMessage(respResult.toJSONString());
+            users.get(game.bId).sendMessage(respResult.toJSONString());
+            System.out.println("hava a result");
+        }
+
     }
 
     @OnOpen

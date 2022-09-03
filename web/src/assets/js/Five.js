@@ -14,6 +14,7 @@ export class Five extends AcGameObject {
         this.g = this.store.state.five.g;
         this.steps = this.store.state.five.steps;
         this.order = this.store.state.five.order; // sing 表示单步走   double 表示 双不走
+        //黑棋先走， 黑旗是b， 是后加入的， 给g[][]填入2
     }
     // start_g() {
     //     for (let i = 0; i < this.rows; i++) {

@@ -1,17 +1,22 @@
 <template>
-  <div class="playground">
+  <div v-if="$store.state.five.loser === 'none'" class="playground">
     <div ref="parent" class="gamemap">
       <canvas ref="canvas" tabindex="0"></canvas>
     </div>
   </div>
+  <FiveResult v-if="$store.state.five.loser != 'none'" />
 </template>
 
 <script>
 import { Five } from "@/assets/js/Five.js";
+import  FiveResult  from "@/components/FiveResult.vue";
 import { ref, onMounted, onUnmounted } from "vue";
 import { useStore } from "vuex";
 
 export default {
+  components: {
+      FiveResult
+  },
   setup() {
     const store = useStore();
     let parent = ref(null);
@@ -41,11 +46,17 @@ export default {
           });
           store.commit("updateG", data.g);
           store.commit("updateOrder", data.order);
+          store.commit("updateAIdFive", data.a_id);
+          store.commit("updateBIdFive", data.b_id);
           new Five(canvas.value, parent.value, store, socket);
         }
-        if(data.event === "update_game"){
-            store.commit("updateG",data.g);
-            store.commit("updateStepsFive", data.steps);
+        if (data.event === "update_game") {
+          store.commit("updateG", data.g);
+          store.commit("updateStepsFive", data.steps);
+        }
+        if(data.event === "result"){
+            store.commit("updateLoserFive", data.loser);
+            console.log(store.state.five.loser);
         }
       };
 
