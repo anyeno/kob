@@ -22,7 +22,7 @@ export default {
     let parent = ref(null);
     let canvas = ref(null);
     let socket = null;
-    const socketUrl = `ws://127.0.0.1:3000/websocket/five/${store.state.user.token}/`;
+    const socketUrl = `wss://app2409.acapp.acwing.com.cn/websocket/five/${store.state.user.token}/`;
 
     onMounted(() => {
       socket = new WebSocket(socketUrl); //建立连接
