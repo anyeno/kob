@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import store from '.';
 const ModuleUser={
     state: {
         id:"",
@@ -34,7 +35,8 @@ const ModuleUser={
     actions: {
         login(context,data){//data传入api的输入  这个data是定义函数(login)时的参数   context用来调用mutations的函数
             $.ajax({
-                url:"https://app2409.acapp.acwing.com.cn/api/user/account/token/",
+                
+                url: store.state.domain + "api/user/account/token/",
                 type:"post",
                 data:{
                     username: data.username,
@@ -58,7 +60,8 @@ const ModuleUser={
 
         getinfo(context,data){
             $.ajax({
-                url:"https://app2409.acapp.acwing.com.cn/api/user/account/info/",
+                
+                url: store.state.domain + "api/user/account/info/",
                 type:"get",
                 headers: {
                   Authorization: "Bearer "+ context.state.token,

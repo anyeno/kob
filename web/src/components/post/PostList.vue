@@ -16,7 +16,7 @@ export default {
     let posts = ref([]);
     const getlist = () => {
       $.ajax({
-        url: "https://app2409.acapp.acwing.com.cn/api/post/getlist/",
+        url: store.state.domain + "api/post/getlist/",
         type: "get",
         headers: {
           Authorization: "Bearer " + store.state.user.token,

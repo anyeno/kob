@@ -59,7 +59,8 @@ export default {
     const register = () => {
       error_msg.value = "";
       $.ajax({
-        url: "https://app2409.acapp.acwing.com.cn/api/user/account/register/",
+        
+        url: store.state.domain + "api/user/account/register/",
         type: "POST",
         data: {
           username: username.value,

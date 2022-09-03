@@ -20,8 +20,8 @@ export default {
     },
     setup(){
         const store = useStore();
-        const socketUrl = `wss://app2409.acapp.acwing.com.cn/websocket/${store.state.user.token}/`  //用``就可以使用store了
-
+        //const socketUrl = `wss://app2409.acapp.acwing.com.cn/websocket/${store.state.user.token}/`  //用``就可以使用store了
+        const socketUrl = `ws://127.0.0.1:3000/websocket/${store.state.user.token}/`
         let socket = null;
 
         store.commit("updateIsRecord",false);
@@ -75,7 +75,7 @@ export default {
 
             socket.onclose = () => {//链接关闭时执行的函数
                 console.log("disconnected!");
-            }
+            };
         });
         
         onUnmounted(() => {//组件卸载时执行

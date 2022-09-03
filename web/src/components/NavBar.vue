@@ -43,6 +43,13 @@
               >随机壁纸</router-link
             >
           </li>
+          <li class="nav-item">
+            <router-link
+              :class="route_name == 'five' ? 'nav-link active' : 'nav-link'"
+              :to="{ name: 'five' }"
+              >五子棋</router-link
+            >
+          </li>
         </ul>
 
         <ul class="navbar-nav" v-if="!$store.state.user.is_login">

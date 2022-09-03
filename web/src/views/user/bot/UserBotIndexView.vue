@@ -152,7 +152,8 @@ export default {
 
         const  refresh_bots = ()=>{
             $.ajax({
-                url:"https://app2409.acapp.acwing.com.cn/api/user/bot/getlist/",
+                
+                url: store.state.domain + "api/user/bot/getlist/",
                 type:"get",
                 headers: {
                     Authorization: "Bearer "+store.state.user.token,
@@ -168,7 +169,8 @@ export default {
         const add_bot = () => {
             botadd.error_msg = "";
             $.ajax({
-                url:"https://app2409.acapp.acwing.com.cn/api/user/bot/add/",
+                
+                url: store.state.domain + "api/user/bot/add/",
                 type:"post",
                 data:{
                     title: botadd.title,
@@ -195,7 +197,8 @@ export default {
         const update_bot = (bot) => {
             botadd.error_msg = "";
             $.ajax({
-                url:"https://app2409.acapp.acwing.com.cn/api/user/bot/update/",
+                
+                url: store.state.domain + "api/user/bot/update/",
                 type:"post",
                 data:{
                     bot_id: bot.id,
@@ -219,7 +222,8 @@ export default {
 
         const remove_bot = (bot) => {
             $.ajax({
-                 url:"https://app2409.acapp.acwing.com.cn/api/user/bot/remove/",
+                 
+                 url: store.state.domain + "api/user/bot/remove/",
                 type:"post",
                 data:{
                     bot_id: bot.id,

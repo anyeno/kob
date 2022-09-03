@@ -28,7 +28,7 @@ export default {
         let content = ref("")
         const add_post = ()=>{
             $.ajax({
-                url:"https://app2409.acapp.acwing.com.cn/api/post/add/",
+                url: store.state.domain + "api/post/add/",
                 type:"post",
                 headers:{
                     Authorization:"Bearer "+store.state.user.token

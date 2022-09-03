@@ -2,11 +2,13 @@ import { createStore } from 'vuex'
 import ModuleUser from './user.js'
 import ModulePK from './pk'
 import ModuleRecord from './record'
+import ModuleFive from './five'
 //存储全局变量  各组件之间传递数据、共用数据就用它
 
 export default createStore({
   state: {
     //存储所有数据
+    domain: "http://127.0.0.1:3000/"
   },
   getters: {
     //通过计算获取数据(state)的内容 只能读取 不能修改
@@ -22,5 +24,6 @@ export default createStore({
     user: ModuleUser,
     pk: ModulePK,
     record: ModuleRecord,
+    five: ModuleFive,
   }
 })

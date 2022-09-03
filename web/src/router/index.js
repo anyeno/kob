@@ -8,11 +8,20 @@ import UserBotIndexView from '../views/user/bot/UserBotIndexView'
 import Login from '../views/user/account/Login'
 import Register from '../views/user/account/Register'
 import PostView from '@/views/post/PostView'
+import FiveView from '@/views/pk/FiveView'
 import store from '../store/index'
 //import { redirect } from 'statuses'
 
 //匹配是从上往下匹配的
 const routes = [
+  {
+    path: "/game/five/",
+    name: "five",
+    component: FiveView,
+    meta:{
+      requestAuth: true,
+    }
+  },
   {
     path:"/post/",
     name:"post",
