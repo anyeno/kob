@@ -9,6 +9,7 @@ export default createStore({
   state: {
     //存储所有数据
     domain: "https://app2409.acapp.acwing.com.cn/"
+    //domain: "http://127.0.0.1:3000/"
   },
   getters: {
     //通过计算获取数据(state)的内容 只能读取 不能修改
